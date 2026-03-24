@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build stage') {
+            steps {
+                echo 'This is my build stage'
+            }
+        }
+    stage('Login stage') {
+            steps {
+    withCredentials([usernamePassword(credentialsId: 'DockerCreds', passwordVariable: 'DockerPwd', usernameVariable: 'DockerUser')]) {
+    sh 'echo "$DockerPwd | docker login -u $DockerUser --password-stdin"'
+}
+}
+            }
+        }
+        
+        
+    }
+
